@@ -8,7 +8,9 @@ use App\Models\Vehicle;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
+use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -45,11 +47,16 @@ class VehicleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('number')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('brand')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('model')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('milage')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('customer.name')->label('Customer')->sortable()->searchable(),
+                Stack::make([
+                    Tables\Columns\TextColumn::make('number')->sortable()->searchable()->weight(FontWeight::Bold)->icon('heroicon-s-identification')->alignCenter(),
+                    Tables\Columns\TextColumn::make('brand')->sortable()->searchable()->icon('heroicon-s-globe-alt')->alignLeft(),
+                    Tables\Columns\TextColumn::make('model')->sortable()->searchable()->icon('heroicon-s-cog')->alignLeft(),
+                    Tables\Columns\TextColumn::make('milage')->sortable()->searchable()->icon('heroicon-s-check-badge')->alignLeft(),
+                    Tables\Columns\TextColumn::make('customer.name')->label('Customer')->sortable()->searchable()->icon('heroicon-s-user')->alignLeft(),
+                ]),
+            ])->contentGrid([
+                'md' => 2,
+                'xl' => 3,
             ])
             ->filters([
                 //
