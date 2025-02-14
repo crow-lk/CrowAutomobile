@@ -187,7 +187,8 @@ class InvoiceResource extends Resource
                     ->afterStateUpdated(function ($state, callable $set) {
                         $total = collect($state)->sum(fn($item) => ($item['quantity'] ?? 0) * ($item['price'] ?? 0));
                         $set('amount', $total);
-                    })->columnSpanFull(),
+                    })->columnSpanFull()->collapsible()
+                    ->itemLabel(fn (array $state): ?string => $state['description'] ?? null),
 
 
 
