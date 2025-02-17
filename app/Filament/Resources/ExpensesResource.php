@@ -17,42 +17,31 @@ class ExpensesResource extends Resource
 {
     protected static ?string $model = Expenses::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar';
+
+    protected static ?string $navigationGroup = "Expences";
 
     protected static ?string $navigationGroup = "Expences";
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-Forms\Components\TextInput::make('description')->required(),
-Forms\Components\TextInput::make('date')->required(),
-Forms\Components\TextInput::make('expense_category')->required()
-            ]);
+        return $form->schema([
+            Forms\Components\Select::make('expense_category')->required()->relationship('expense_categories', 'name')->searchable(),
+            Forms\Components\TextInput::make('name')->required(), 
+            Forms\Components\TextInput::make('description')->required(), 
+            Forms\Components\TextInput::make('date')->required()
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
-Tables\Columns\TextColumn::make('description')->sortable()->searchable(),
-Tables\Columns\TextColumn::make('date')->sortable()->searchable(),
-Tables\Columns\TextColumn::make('expense_category')->sortable()->searchable()
-            ])
+            ->columns([Tables\Columns\TextColumn::make('name')->sortable()->searchable(), Tables\Columns\TextColumn::make('description')->sortable()->searchable(), Tables\Columns\TextColumn::make('date')->sortable()->searchable(), Tables\Columns\TextColumn::make('expense_category')->sortable()->searchable()])
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->actions([Tables\Actions\ViewAction::make(), Tables\Actions\EditAction::make()])
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getPages(): array
