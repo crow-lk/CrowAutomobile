@@ -2,9 +2,6 @@ body {
     font-family: "Open Sans", sans-serif;
     padding-left: 10px;
     padding-right: 10px;
-    background-image: url("../images/BG2.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
     background-position: center;
     color: #333;
 }
@@ -12,11 +9,27 @@ body {
 .container {
     display: flex;
     width: 100%;
-    margin-top: 140px;
+    margin-top: 10px;
 }
 
 .name {
     font-size: 24px;
+}
+
+/* .header {
+    margin-bottom: 10px;
+} */
+
+.line {
+    margin-top: 160px;
+}
+
+.logo {
+    color: #d21404;
+    left: 20px;
+    height: 150px;
+    width: 150px;
+    position: fixed;
 }
 
 .inv {
@@ -32,11 +45,13 @@ body {
 .right {
     right: 20px;
     position: fixed;
+    font-size: 11px;
     text-align: right;
 }
 
 .left {
     position: fixed;
+    font-size: 11px;
 }
 
 .left p {
@@ -46,7 +61,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 200px;
+    margin-top: 140px;
     margin-bottom: 20px;
 }
 
@@ -77,7 +92,7 @@ th {
     padding: 8px;
     background-color: #ddd;
     color: black;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
     text-align: right;
 }
@@ -95,10 +110,11 @@ th {
 }
 
 .h1 {
-    font-size: 22px;
+    font-size: 14px;
     line-height: 0.5;
 }
 
 .p1 {
+    font-size: 12px;
     line-height: 0.5;
 }

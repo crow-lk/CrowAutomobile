@@ -8,8 +8,13 @@
     <link rel="stylesheet" href="{{ public_path('css/pdf.css') }}">
 </head>
 <body>
-    <div class="inv">
-        <p><strong>{{ $invoice->is_invoice ? 'INVOICE' : 'QUATATION' }}</strong></p>
+    <div class="header">
+        <img src="images/logo1.png" alt="logo" class="logo">
+
+        <div class="inv">
+            <p><strong>{{ $invoice->is_invoice ? 'INVOICE' : 'QUATATION' }}</strong></p>
+        </div>
+        <div><hr class="line"></div>
     </div>
     <div class="container">
         <div class="right">
@@ -32,31 +37,31 @@
     <table>
         <thead>
             <tr>
-                <th style="width:10%; text-align: center;">No</th>
-                <th style="width:40%; text-align: left;">Description</th>
-                <th style="width:20%; text-align: right;">Unit Price(LKR)</th>
-                <th style="width:10%; text-align: center;">Qty</th>
-                <th style="width:20%; text-align: right;">Total(LKR)</th>
+                <th style="width:10%; text-align: center; font-size: 11px;">No</th>
+                <th style="width:40%; text-align: left; font-size: 11px;">Description</th>
+                <th style="width:20%; text-align: right; font-size: 11px;">Unit Price(LKR)</th>
+                <th style="width:10%; text-align: center; font-size: 11px;">Qty</th>
+                <th style="width:20%; text-align: right; font-size: 11px;">Total(LKR)</th>
             </tr>
         </thead>
         <tbody>
             @foreach($invoiceItems as $index => $item)
                 <tr>
-                    <td style="width:10%; text-align: center;">{{ $index + 1 }}</td>
-                    <td style="width:40%; text-align: left;">
+                    <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
+                    <td style="width:40%; text-align: left; font-size: 11px;">
                         {{ $item->description }}
                         @if($item->warranty_available)
                             <br>
                             <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
                         @endif
                     </td>
-                    <td style="width:20%; text-align: right;">{{ number_format($item->price, 2) }}</td>
-                    <td style="width:10%; text-align: center;">
+                    <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>
+                    <td style="width:10%; text-align: center; font-size: 11px;">
                         @if($item->is_item)
                             {{ $item->quantity }}
                         @endif
                     </td>
-                    <td style="width:20%; text-align: right;">{{ number_format($item->quantity*$item->price, 2) }}</td>
+                    <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->quantity*$item->price, 2) }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -69,7 +74,7 @@
         <p class="p1"><strong>Thank you for buisness with us!</strong></p>
     </div>
     <div class="text2">
-        <p><strong>Term and Conditions :</strong></p>
+        <p class="p1"><strong>Term and Conditions :</strong></p>
         <p class="p1">It is mandatory to bring the invoice given to you</p>
         <p class="p1">for any Battery, ABS related services.</p>
         <p class="p1">Physical damages are not covered under warranty.</p>
