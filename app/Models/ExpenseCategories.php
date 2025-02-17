@@ -11,4 +11,10 @@ class ExpenseCategories extends Model
     protected $fillable = [
         'name'
     ];
+
+    //Expenses relationship
+    public function expenses()
+    {
+        return $this->hasMany(Expenses::class);
+    }
 }
