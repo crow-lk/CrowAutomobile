@@ -21,8 +21,6 @@ class ExpensesResource extends Resource
 
     protected static ?string $navigationGroup = "Expences";
 
-    protected static ?string $navigationGroup = "Expences";
-
     public static function form(Form $form): Form
     {
         return $form->schema([
