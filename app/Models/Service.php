@@ -19,5 +19,6 @@ class Service extends Model
     public function inpha_jobs()
     {
         return $this->belongsToMany(Inpha_Job::class);
+        
     }
 }

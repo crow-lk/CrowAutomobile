@@ -17,21 +17,21 @@ class ItemsResource extends Resource
 {
     protected static ?string $model = Item::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static ?string $navigationGroup = 'Inventory';
 
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\TextInput::make('name')->required(), 
-            Forms\Components\Select::make('unit')->options([ 
-                'l' => 'liters', 
-                'ml' => 'mililiters', 
+            Forms\Components\TextInput::make('name')->required(),
+            Forms\Components\Select::make('unit')->options([
+                'l' => 'liters',
+                'ml' => 'mililiters',
                 'pcs' => 'pcs',
                 'pair' => 'pair',
                 ])->required(),
-            Forms\Components\TextInput::make('qty')->required(), 
+            Forms\Components\TextInput::make('qty')->required(),
             Forms\Components\TextInput::make('comment'),
         ]);
     }
@@ -40,9 +40,9 @@ class ItemsResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->sortable()->searchable(), 
-                Tables\Columns\TextColumn::make('unit')->sortable()->searchable(), 
-                Tables\Columns\TextColumn::make('qty')->sortable()->searchable(), 
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('unit')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('qty')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('comment')->sortable()->searchable()])
             ->filters([
                 //

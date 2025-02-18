@@ -4,9 +4,9 @@ namespace App\Filament\Resources\InvoiceResource\Pages;
 
 use App\Filament\Resources\InvoiceResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ManageRecords;
 
-class ListInvoices extends ListRecords
+class ManageInvoices extends ManageRecords
 {
     protected static string $resource = InvoiceResource::class;
 
@@ -14,6 +14,14 @@ class ListInvoices extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getActions(): array
+    {
+        return [
+            Actions\EditAction::make(),
+            Actions\DeleteAction::make(),
         ];
     }
 }
