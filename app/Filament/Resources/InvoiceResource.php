@@ -204,32 +204,6 @@ class InvoiceResource extends Resource
                         $set('balance', $balance);
                     }),
 
-                Forms\Components\TextInput::make('paid_amount')
-                    ->numeric()
-                    ->label('Paid Amount')
-                    ->default(0)
-                    ->reactive()
-                    ->debounce(2000)
-                    ->afterStateUpdated(function ($state, callable $set, $get) {
-                        $amount = (float)($get('amount') ?? 0); // Cast to float for safety
-                        $paidAmount = (float)($get('paid_amount') ?? 0); // Cast to float for safety
-                        $balance = $paidAmount - $amount; // Calculate the balance
-                        $set('balance', $balance);
-                    }),
-
-                Forms\Components\TextInput::make('balance')
-                    ->numeric()
-                    ->label('Balance (+/-)')
-                    ->default(0)
-                    ->readOnly()
-                    ->reactive()
-
-
-
-
-
-
-
                 // Make the field reactive
             ]);
     }
