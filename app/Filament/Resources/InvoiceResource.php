@@ -139,7 +139,16 @@ class InvoiceResource extends Resource
                                         }
                                     }),
                             ])->columns(2),
-                            Forms\Components\TextInput::make('description')
+                            Forms\Components\Select::make('service_id')
+                                ->label('Service/Item')
+                                ->relationship('service', 'name')
+                                ->createOptionForm([
+                                    Forms\Components\TextInput::make('name')
+                                        ->label('Service Name')
+                                        ->required(),
+                                    Forms\Components\TextInput::make('description')
+                                        ->label('Description'),
+                        ])
                                 ->required(),
                         ])->columnSpanFull(),
                         Forms\Components\TextInput::make('quantity')

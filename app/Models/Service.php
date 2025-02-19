@@ -16,9 +16,8 @@ class Service extends Model
         'description',
     ];
 
-    public function inpha_jobs()
+    public function invoiceItems()
     {
-        return $this->belongsToMany(Inpha_Job::class);
-        
+        return $this->hasMany(InvoiceItem::class);
     }
 }
