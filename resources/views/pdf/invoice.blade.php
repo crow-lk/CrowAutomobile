@@ -10,11 +10,23 @@
 <body>
     <div class="header">
         <img src="images/logo1.png" alt="logo" class="logo">
-
-        <div class="inv">
-            <p><strong>{{ $invoice->is_invoice ? 'INVOICE' : 'QUATATION' }}</strong></p>
+        <p class="inv">JAGATH MOTORS & ENGINEERING</p>
+        <p class="sub">Importers and dealers in New used Japanese motor spares body parts<br/>welding, panting & all necessities repairing vehicle repairs & Advertising</p>
+        <div class="float-container">
+            <div class="float-item">
+                <img src="images/loc.png" alt="" class="icon">
+                <span class="p1">Rilhena, Pelmadulla</span>
+            </div>
+            <div class="float-item">
+                <img src="images/email.png" alt="" class="icon">
+                <span class="p1">jagathmotors499@gmail.com</span>
+            </div>
+            <div class="float-item">
+                <img src="images/call.png" alt="" class="icon">
+                <span class="p1">045 2276606 | 077 2224714</span>
+            </div>
+            <div style="clear: both;"></div> <!-- Clear floats -->
         </div>
-        <div><hr class="line"></div>
     </div>
     <div class="container">
         <div class="right">
@@ -67,10 +79,10 @@
         </tbody>
     </table>
     @if($showGrandTotal)
-        <p class="total">GRAND TOTAL:  Rs.{{ number_format($invoice->amount, 2) }}</p>
+        <p class="total">Grand Total:  Rs.{{ number_format($invoice->amount, 2) }}</p>
     @endif
     <div class="text1">
-        <p class="h1"><strong>Inpha Auto Mac & Hybrid Care</strong></p>
+        <p class="h1"><strong>Jagath Motors & Engineering</strong></p>
         <p class="p1"><strong>Thank you for buisness with us!</strong></p>
     </div>
     <div class="text2">
