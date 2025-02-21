@@ -140,16 +140,58 @@ class InvoiceResource extends Resource
                                     }),
                             ])->columns(2),
                             Forms\Components\Select::make('service_id')
-                                ->label('Service/Item')
-                                ->relationship('service', 'name')
-                                ->createOptionForm([
-                                    Forms\Components\TextInput::make('name')
-                                        ->label('Service Name')
-                                        ->required(),
-                                    Forms\Components\TextInput::make('description')
-                                        ->label('Description'),
-                        ])
-                                ->required(),
+                            ->label('Service/Item')
+                            ->options(function (callable $get) {
+                                if ($get('is_service')) {
+                                    return \App\Models\Service::pluck('name', 'id'); // Load services
+                                } elseif ($get('is_item')) {
+                                    return \App\Models\Item::pluck('name', 'id'); // Load items
+                                }
+                                return [];
+                            })
+                            ->reactive()
+                            ->searchable()
+                            ->createOptionForm(function (callable $get) {
+                                if ($get('is_service')) {
+                                    return [
+                                        Forms\Components\TextInput::make('name')->label('Service Name')->required(),
+                                        Forms\Components\TextInput::make('description')->label('Description'),
+                                    ];
+                                } elseif ($get('is_item')) {
+                                    return [
+                                        Forms\Components\TextInput::make('name')->label('Item Name')->required(),
+                                        Forms\Components\Select::make('unit')->options([
+                                            'l' => 'Liters',
+                                            'ml' => 'Milliliters',
+                                            'pcs' => 'Pieces',
+                                            'pair' => 'Pair',
+                                        ])->required(),
+                                        Forms\Components\TextInput::make('qty')->label('Quantity')->numeric()->required(),
+                                        Forms\Components\TextInput::make('comment')->label('Comment'),
+                                    ];
+                                }
+                                return [];
+                            })
+                            ->createOptionUsing(function (array $data, callable $get) {
+                                if ($get('is_service')) {
+                                    $service = \App\Models\Service::create([
+                                        'name' => $data['name'],
+                                        'description' => $data['description'] ?? null,
+                                    ]);
+                                    return $service->id;
+                                } elseif ($get('is_item')) {
+                                    $item = \App\Models\Item::create([
+                                        'name' => $data['name'],
+                                        'unit' => $data['unit'],
+                                        'qty' => $data['qty'],
+                                        'comment' => $data['comment'] ?? null,
+                                    ]);
+                                    return $item->id;
+                                }
+                                return null;
+                            })
+                            ->required(),
+                        
                         ])->columnSpanFull(),
                         Forms\Components\TextInput::make('quantity')
                             ->default(1)
@@ -194,7 +236,8 @@ class InvoiceResource extends Resource
                     ])
                     ->reactive() // Make the repeater reactive
                     ->afterStateUpdated(function ($state, callable $set) {
-                        $total = collect($state)->sum(fn($item) => ($item['quantity'] ?? 0) * ($item['price'] ?? 0));
+                        $total = collect($state)->sum(fn($item) => ((float)($item['quantity'] ?? 0)) * ((float)($item['price'] ?? 0)));
+
                         $set('amount', $total);
                     })->columnSpanFull()->collapsible()
                     ->itemLabel(fn (array $state): ?string => $state['description'] ?? null),
