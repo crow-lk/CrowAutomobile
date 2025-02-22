@@ -61,10 +61,20 @@
                 <tr>
                     <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
                     <td style="width:40%; text-align: left; font-size: 11px;">
-                        {{ $item->service->name ?? 'N/A' }}
-                        @if($item->warranty_available)
-                            <br>
-                            <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
+                        @if($item->is_service) <!-- Check if it's a service -->
+                            {{ $item->service->name ?? 'N/A' }}
+                            @if($item->warranty_available)
+                                <br>
+                                <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
+                            @endif
+                        @elseif($item->is_item) <!-- Check if it's an item -->
+                            {{ $item->item->name ?? 'N/A' }}
+                            @if($item->warranty_available)
+                                <br>
+                                <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
+                            @endif
+                        @else
+                            N/A <!-- Fallback if neither is true -->
                         @endif
                     </td>
                     <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>

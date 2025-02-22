@@ -140,24 +140,36 @@ class InvoiceResource extends Resource
                                     }),
                             ])->columns(2),
                             Forms\Components\Select::make('service_id')
-                            ->label('Service/Item')
-                            ->options(function (callable $get) {
-                                if ($get('is_service')) {
+                                ->label('Service')
+                                ->options(function () {
                                     return \App\Models\Service::pluck('name', 'id'); // Load services
-                                } elseif ($get('is_item')) {
-                                    return \App\Models\Item::pluck('name', 'id'); // Load items
-                                }
-                                return [];
-                            })
-                            ->reactive()
-                            ->searchable()
-                            ->createOptionForm(function (callable $get) {
-                                if ($get('is_service')) {
+                                })
+                                ->reactive()
+                                ->required()
+                                ->searchable()
+                                ->createOptionForm(function () {
                                     return [
                                         Forms\Components\TextInput::make('name')->label('Service Name')->required(),
                                         Forms\Components\TextInput::make('description')->label('Description'),
                                     ];
-                                } elseif ($get('is_item')) {
+                                })
+                                ->createOptionUsing(function (array $data) {
+                                    $service = \App\Models\Service::create([
+                                        'name' => $data['name'],
+                                        'description' => $data['description'] ?? null,
+                                    ]);
+                                    return $service->id; // Return the service ID
+                                })
+                                ->hidden(fn($get) => !$get('is_service')),
+
+                            Forms\Components\Select::make('item_id')
+                                ->label('Item')
+                                ->options(function () {
+                                    return \App\Models\Item::pluck('name', 'id'); // Load items
+                                })
+                                ->reactive()
+                                ->searchable()
+                                ->createOptionForm(function () {
                                     return [
                                         Forms\Components\TextInput::make('name')->label('Item Name')->required(),
                                         Forms\Components\Select::make('unit')->options([
@@ -169,30 +181,21 @@ class InvoiceResource extends Resource
                                         Forms\Components\TextInput::make('qty')->label('Quantity')->numeric()->required(),
                                         Forms\Components\TextInput::make('comment')->label('Comment'),
                                     ];
-                                }
-                                return [];
-                            })
-                            ->createOptionUsing(function (array $data, callable $get) {
-                                if ($get('is_service')) {
-                                    $service = \App\Models\Service::create([
-                                        'name' => $data['name'],
-                                        'description' => $data['description'] ?? null,
-                                    ]);
-                                    return $service->id;
-                                } elseif ($get('is_item')) {
+                                })
+                                ->createOptionUsing(function (array $data) {
                                     $item = \App\Models\Item::create([
                                         'name' => $data['name'],
                                         'unit' => $data['unit'],
                                         'qty' => $data['qty'],
                                         'comment' => $data['comment'] ?? null,
                                     ]);
-                                    return $item->id;
-                                }
-                                return null;
-                            })
-                            ->required(),
+                                    return $item->id; // Return the item ID
+                                })
+                            ->required()
+                            ->hidden(fn($get) => !$get('is_item')),
 
                         ])->columnSpanFull(),
+
                         Forms\Components\TextInput::make('quantity')
                             ->default(1)
                             ->numeric()

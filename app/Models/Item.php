@@ -17,4 +17,9 @@ class Item extends Model
         'qty',
         'comment',
     ];
+
+    public function invoiceItems()
+    {
+        return $this->hasMany(InvoiceItem::class);
+    }
 }
