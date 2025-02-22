@@ -10,7 +10,11 @@ export default {
         './resources/**/*.vue',
     ],
     theme: {
-        extend: {
+        extend: {colors: {
+            orange: '#F97316',
+            green: '#16A34A',
+            red: '#DC2626', // Example accent color
+        },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
