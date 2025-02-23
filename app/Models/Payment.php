@@ -19,4 +19,19 @@ class Payment extends Model
     {
         return $this->belongsTo(Invoice::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($payment) {
+            $invoice = Invoice::find($payment->invoice_id);
+
+            // Reduce stock
+            $invoice->decrement('credit_balance', $payment->amount_paid);
+        });
+
+        // Restore stock if the payment is deleted
+        static::deleting(function ($payment) {
+            $payment->invoice->increment('credit_balance', $payment->amount_paid);
+        });
+    }
 }

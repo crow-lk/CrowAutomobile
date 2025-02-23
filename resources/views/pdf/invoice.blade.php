@@ -90,6 +90,8 @@
     </table>
     @if($showGrandTotal)
         <p class="total">Grand Total:  Rs.{{ number_format($invoice->amount, 2) }}</p>
+        <p class="total">Paid Amount:  Rs.{{ number_format($totalPaid, 2) }}</p>
+        <p class="total">Balance:  Rs.{{ number_format($invoice->credit_balance, 2) }}</p>
     @endif
     <div class="text1">
         <p class="h1"><strong>Jagath Motors & Engineering</strong></p>

@@ -12,8 +12,13 @@ class InvoiceController extends Controller
 
     public function generateInvoice($invoiceId)
     {
-        $invoice = Invoice::with('invoiceItems')->findOrFail($invoiceId);
+        $invoice = Invoice::with(['invoiceItems', 'payments'])->findOrFail($invoiceId);
         $items = $invoice->invoiceItems;
+        $payments = $invoice->payments; // Get the payments associated with the invoice
+
+        // Calculate the total paid amount
+        $totalPaid = $invoice->payments->sum('amount_paid');
+
 
         // Create a new FPDI instance
         $pdf = new Fpdi();
@@ -33,6 +38,8 @@ class InvoiceController extends Controller
             $pdfChunk = PDF::loadView('pdf.invoice', [
                 'invoice' => $invoice,
                 'invoiceItems' => $chunk, // Pass the current chunk
+                'totalPaid' => $totalPaid,
+                'payments' => $payments,
                 'showGrandTotal' => $isLastChunk, // Set to true if this is the last chunk
             ]);
 

@@ -242,6 +242,7 @@ class InvoiceResource extends Resource
                         $total = collect($state)->sum(fn($item) => ((float)($item['quantity'] ?? 0)) * ((float)($item['price'] ?? 0)));
 
                         $set('amount', $total);
+                        $set('credit_balance', $total);
                     })->columnSpanFull()->collapsible()
                     ->itemLabel(fn (array $state): ?string => $state['description'] ?? null),
 
@@ -251,41 +252,14 @@ class InvoiceResource extends Resource
                     ->numeric()
                     ->label('Total Amount')
                     ->default(0)
-                    ->reactive()
-                    ->afterStateUpdated(function ($state, callable $set, $get) {
-                        $amount = (float)($get('amount') ?? 0); // Cast to float for safety
-                        $paidAmount = (float)($get('paid_amount') ?? 0); // Cast to float for safety
-                        $balance = $paidAmount - $amount; // Calculate the balance
-                        $set('balance', $balance);
-                    }),
+                    ->reactive(),
 
-                Forms\Components\TextInput::make('amount_paid')
+                Forms\Components\TextInput::make('credit_balance')
                     ->numeric()
-                    ->label('Paid Amount')
+                    ->label('To Pay')
                     ->default(0)
                     ->reactive()
-                    ->debounce(2000)
-                    ->afterStateUpdated(function ($state, callable $set, $get) {
-                        $amount = (float)($get('amount') ?? 0); // Cast to float for safety
-                        $paidAmount = (float)($get('amount_paid') ?? 0); // Cast to float for safety
-                        $balance = $paidAmount - $amount; // Calculate the balance
-                        $set('balance', $balance);
-                    }),
 
-                Forms\Components\TextInput::make('balance')
-                    ->numeric()
-                    ->label('Balance (+/-)')
-                    ->default(0)
-                    ->readOnly()
-                    ->reactive()
-
-
-
-
-
-
-
-                // Make the field reactive
             ]);
     }
 
@@ -335,9 +309,7 @@ class InvoiceResource extends Resource
                     ->sortable(), // Concatenate item details
             ])
             ->actions([
-                Tables\Actions\Action::make('Download PDF')
-                    ->url(fn(Invoice $record) => route('invoices.pdf', $record->id))
-                    ->label('Download PDF')
+                Tables\Actions\EditAction::make()
             ]);
     }
 

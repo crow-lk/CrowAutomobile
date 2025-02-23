@@ -43,7 +43,7 @@ class PaymentResource extends Resource
 
                                 if ($invoice) {
                                     $set('amount', $invoice->amount);
-                                    $set('amount_to_pay', $invoice->amount); // Set initial value of amount_to_pay
+                                    $set('amount_to_pay', $invoice->credit_balance); // Set initial value of amount_to_pay
                                 } else {
                                     $set('amount', null);
                                     $set('amount_to_pay', null);
@@ -80,20 +80,14 @@ class PaymentResource extends Resource
                             ->label('Total')
                             ->disabled()
                             ->numeric()
-                            ->step(0.01)
-                            ->extraAttributes(['style' => 'background-color: #F97316; color: #000000; border-color: #F97316;']) // Orange color for Total Amount
+                            ->step(0.01) // Orange color for Total Amount
 
                         , TextInput::make('amount_paid')
                             ->label('Amount Paid')
                             ->required()
                             ->numeric()
                             ->step(0.01)
-                            ->reactive()
-                            ->afterStateUpdated(function ($state, callable $get, callable $set) {
-                                $amount = $get('amount') ?? 0;
-                                $set('amount_to_pay', max($amount - $state, 0)); // Recalculate amount_to_pay after amount_paid update
-                            })
-                            ->extraAttributes(['style' => 'background-color: #34D399; color: #000000; border-color: #34D399;']) // Green color for Paid Amount
+                            ->reactive() // Green color for Paid Amount
 
 
 
@@ -103,16 +97,7 @@ class PaymentResource extends Resource
                             ->disabled()
                             ->numeric()
                             ->step(0.01)
-                            ->reactive()
-                            ->default(function (callable $get) {
-                                $invoiceId = $get('invoice_id');
-                                if ($invoiceId) {
-                                    $invoice = Invoice::find($invoiceId);
-                                    return $invoice ? $invoice->amount : 0;
-                                }
-                                return 0;
-                            })
-                            ->extraAttributes(['style' => 'background-color: #EF4444; color: #000000; border-color: #EF4444;']) // Red color for To Pay
+                            ->reactive() // Red color for To Pay
                     ])->columnSpan(2)->columns(2),
             ])
             ->columns(3);
@@ -129,7 +114,10 @@ class PaymentResource extends Resource
             ])
             ->filters([])
             ->actions([
-                Tables\Actions\EditAction::make()
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('Download PDF')
+                    ->url(fn(Payment $record) => route('invoices.pdf', $record->invoice_id))
+                    ->label('Download PDF')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
