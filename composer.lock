@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6b2af6131f1f4a1da36971eeb2161c1",
+    "content-hash": "a33ae40b56b71e3880f78d0750aa9c7d",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4327,6 +4327,55 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.3.1"
             },
             "time": "2024-10-08T18:51:32+00:00"
+        },
+        {
+            "name": "notifylk/notify-php",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/notifylk/notify-php.git",
+                "reference": "9bc805a0cb6339d7c122ccadac530fa331cc2120"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~1.12",
+                "phpunit/phpunit": "~4.8",
+                "satooshi/php-coveralls": "~1.0",
+                "squizlabs/php_codesniffer": "~2.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NotifyLk\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "NotifyLk\\": "test/"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Swagger and contributors",
+                    "homepage": "https://github.com/swagger-api/swagger-codegen"
+                }
+            ],
+            "homepage": "http://swagger.io",
+            "keywords": [
+                "api",
+                "php",
+                "sdk",
+                "swagger"
+            ],
+            "time": "2017-06-16T04:30:31+00:00"
         },
         {
             "name": "nunomaduro/termwind",
