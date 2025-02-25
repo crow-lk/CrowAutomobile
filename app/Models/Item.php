@@ -9,7 +9,7 @@ class Item extends Model
 {
     use SoftDeletes;
 
-   protected $table = 'items';
+    protected $table = 'items';
 
     protected $fillable = [
         'name',
@@ -21,5 +21,11 @@ class Item extends Model
     public function invoiceItems()
     {
         return $this->hasMany(InvoiceItem::class);
+    }
+
+    
+    public function procurement()
+    {
+        return $this->hasMany(Procurement::class);
     }
 }
