@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Illuminate\Support\Str;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
@@ -44,9 +45,17 @@ class PaymentResource extends Resource
                                 if ($invoice) {
                                     $set('amount', $invoice->amount);
                                     $set('amount_to_pay', $invoice->credit_balance); // Set initial value of amount_to_pay
+
+                                    // Get the current date in the desired format (e.g., Ymd for YYYYMMDD)
+                                    $currentDate = now()->format('Ymd'); // Format: YYYYMMDD
+
+                                    // Generate the reference number
+                                    $referenceNumber = 'JME' . $currentDate . $invoice->id; // Concatenate JME, current date, and invoice ID
+                                    $set('reference_number', $referenceNumber); // Set the reference number
                                 } else {
                                     $set('amount', null);
                                     $set('amount_to_pay', null);
+                                    $set('reference_number', null); // Clear reference number if no invoice
                                 }
                             }),
 
