@@ -202,6 +202,7 @@ class InvoiceResource extends Resource
                             ->required()
                             ->reactive()
                             ->debounce(1000)
+                            ->disabled(fn ($get) => $get('is_service'))
                             ->afterStateUpdated(function ($state, callable $set, $get) {
                                 // If the item is a service, enforce quantity to be 1
                                 if ($get('is_service')) {
