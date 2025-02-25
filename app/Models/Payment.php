@@ -50,7 +50,7 @@ class Payment extends Model
                     self::sendSmsNotificationWithCreditBalance(
                         self::formatPhoneNumber($customer->phone),
                         $customer->name,
-                        $payment->id, // Payment reference ID
+                        $payment->reference_number, // Payment reference ID
                         $invoice->vehicle->number, // Vehicle number
                         $invoice->id, // Invoice ID
                         $invoice->amount, // Total amount
@@ -62,7 +62,7 @@ class Payment extends Model
                         self::formatPhoneNumber($customer->phone),
                         $customer->name,
                         $amount,
-                        $payment->id, // Payment reference ID
+                        $payment->reference_number, // Payment reference ID
                         $invoice->id // Invoice ID
                     );
                 }
@@ -89,7 +89,7 @@ class Payment extends Model
 
         $message = "Vehicle No: $vehicleNo\n" .
                    "Invoice ID: $invoiceId\n" .
-                   "Payment Reference ID: $paymentId\n" .
+                   "Reference ID: $paymentId\n" .
                    "Total Amount: LKR $totalAmount\n" .
                    "Paid Amount: LKR $paidAmount\n" .
                    "Credit Balance: LKR $creditBalance\n" .
