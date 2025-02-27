@@ -22,6 +22,8 @@ class Invoice extends Model
         'invoice_date'
     ];
 
+
+
     public function invoiceItems()
     {
         return $this->hasMany(InvoiceItem::class);
