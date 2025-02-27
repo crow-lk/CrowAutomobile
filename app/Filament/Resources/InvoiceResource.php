@@ -304,6 +304,15 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('amount')
                     ->label('Total Amount')
                     ->sortable(), // Format as currency
+                Tables\Columns\TextColumn::make('payment_status')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'Partial Paid' => 'warning',
+                        'Paid' => 'success',
+                        'unpaid' => 'danger',
+                    })
+                    ->sortable(), // Format as currency    
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()
