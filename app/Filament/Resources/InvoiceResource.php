@@ -310,7 +310,7 @@ class InvoiceResource extends Resource
                     ->color(fn (string $state): string => match ($state) {
                         'Partial Paid' => 'warning',
                         'Paid' => 'success',
-                        'unpaid' => 'danger',
+                        'Unpaid' => 'danger',
                     })
                     ->sortable(), // Format as currency    
                 Tables\Columns\TextColumn::make('created_at')
