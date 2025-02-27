@@ -2,7 +2,7 @@
 
 namespace App\Providers\Filament;
 
-
+use App\Filamemt\Resources\InvoiceResource\Widgets\TodayIncomeWidget\TodayIncomeWidget;
 use App\Models\BatteryPack;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -44,6 +44,9 @@ class AdminPanelProvider extends PanelProvider
                 Pages\Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            ->widgets([
+                TodayIncomeWidget::class,
+            ])
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,

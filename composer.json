@@ -17,6 +17,7 @@
         "notifylk/notify-php": "^1.0",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
+        "flowframe/laravel-trend": "^0.2.0",
         "solution-forest/filament-scaffold": "^0.0.7"
     },
     "require-dev": {
