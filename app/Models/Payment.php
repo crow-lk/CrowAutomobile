@@ -41,6 +41,13 @@ class Payment extends Model
             $amount = $payment->amount_paid; // Use the amount paid for the message
             $creditBalance = $invoice->credit_balance; // Get the current credit balance
 
+            if ($creditBalance > 0) {
+                $invoice->payment_status = 'Partial Paid';
+            } else {
+                $invoice->payment_status = 'Paid';
+            }
+            $invoice->save(); // Save the updated invoice
+
             // Ensure the customer relationship is loaded
             $customer = $payment->invoice->customer;
 

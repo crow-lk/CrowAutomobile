@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filamemt\Resources\InvoiceResource\Widgets\TodayIncomeWidget\TodayIncomeWidget;
+use App\Filament\Resources\VehicleResource\Widgets\TodayRegisteredVehiclesWidget\TodayRegisteredVehiclesWidget;
 use App\Models\BatteryPack;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -22,6 +23,8 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use PhpParser\Node\Expr\AssignOp\Mod;
 use Solutionforest\FilamentScaffold\FilamentScaffoldPlugin;
+
+
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -46,6 +49,9 @@ class AdminPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 TodayIncomeWidget::class,
+                TodayRegisteredVehiclesWidget::class,
+              
+
             ])
             ->middleware([
                 EncryptCookies::class,
