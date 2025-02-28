@@ -10,6 +10,7 @@
         "dompdf/dompdf": "^3.0",
         "filament/filament": "^3.2",
         "filament/forms": "^3.2",
+        "flowframe/laravel-trend": "^0.4.0",
         "hasnayeen/themes": "^3.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
@@ -17,7 +18,6 @@
         "notifylk/notify-php": "^1.0",
         "setasign/fpdf": "^1.8",
         "setasign/fpdi": "^2.6",
-        "flowframe/laravel-trend": "^0.2.0",
         "solution-forest/filament-scaffold": "^0.0.7"
     },
     "require-dev": {
@@ -85,6 +85,6 @@
         }
     ],
 
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
