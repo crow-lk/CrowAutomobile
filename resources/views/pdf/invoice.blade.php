@@ -57,34 +57,50 @@
             </tr>
         </thead>
         <tbody>
+            <tr>
+                <td colspan="5" style="text-align: left; font-weight: bold; font-size: 12px;">Parts</td>
+            </tr>
             @foreach($invoiceItems as $index => $item)
-                <tr>
-                    <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
-                    <td style="width:40%; text-align: left; font-size: 11px;">
-                        @if($item->is_service) <!-- Check if it's a service -->
-                            {{ $item->service->name ?? 'N/A' }}
-                            @if($item->warranty_available)
-                                <br>
-                                <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
-                            @endif
-                        @elseif($item->is_item) <!-- Check if it's an item -->
+                @if($item->is_item) <!-- Check if it's an item -->
+                    <tr>
+                        <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
+                        <td style="width:40%; text-align: left; font-size: 11px;">
                             {{ $item->item->name ?? 'N/A' }}
                             @if($item->warranty_available)
                                 <br>
                                 <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
                             @endif
-                        @else
-                            N/A <!-- Fallback if neither is true -->
-                        @endif
-                    </td>
-                    <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>
-                    <td style="width:10%; text-align: center; font-size: 11px;">
-                        @if($item->is_item)
+                        </td>
+                        <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>
+                        <td style="width:10%; text-align: center; font-size: 11px;">
                             {{ $item->quantity }}
-                        @endif
-                    </td>
-                    <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->quantity*$item->price, 2) }}</td>
-                </tr>
+                        </td>
+                        <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->quantity * $item->price, 2) }}</td>
+                    </tr>
+                @endif
+            @endforeach
+        
+            <tr>
+                <td colspan="5" style="text-align: left; font-weight: bold; font-size: 12px;">Services</td>
+            </tr>
+            @foreach($invoiceItems as $index => $item)
+                @if($item->is_service) <!-- Check if it's a service -->
+                    <tr>
+                        <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
+                        <td style="width:40%; text-align: left; font-size: 11px;">
+                            {{ $item->service->name ?? 'N/A' }}
+                            @if($item->warranty_available)
+                                <br>
+                                <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
+                            @endif
+                        </td>
+                        <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>
+                        <td style="width:10%; text-align: center; font-size: 11px;">
+                            
+                        </td>
+                        <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->quantity * $item->price, 2) }}</td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

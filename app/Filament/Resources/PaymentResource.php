@@ -126,7 +126,8 @@ class PaymentResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('Download PDF')
                     ->url(fn(Payment $record) => route('invoices.pdf', $record->invoice_id))
-                    ->label('Download PDF')
+                    ->icon('heroicon-o-printer')
+                    ->label('')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
