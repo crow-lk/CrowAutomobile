@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Forms\Components\TextInput;
 use Dompdf\Dompdf;
 use App\Http\Controllers\InvoiceController;
 use App\Models\Customer;
@@ -209,6 +210,9 @@ class InvoiceResource extends Resource
                                     $set('quantity', 1); // Reset quantity to 1
                                 }
                             }),
+
+
+
                         Forms\Components\TextInput::make('price')
                             ->required()
                             ->numeric()
@@ -237,6 +241,15 @@ class InvoiceResource extends Resource
                             ->reactive()
                             ->required(fn($get) => $get('warranty_available')) // Required if warranty is available
                             ->disabled(fn($get) => !$get('warranty_available')), // Disable if warranty is not available
+                            
+                                    /*Note Adding Section */
+
+                                    Forms\Components\TextInput::make('notes')
+                                    ->label('Special Notes')
+                                    ->placeholder('Enter any note...')
+                                    ->reactive(),
+
+
                     ])
                     ->reactive() // Make the repeater reactive
                     ->afterStateUpdated(function ($state, callable $set) {
@@ -312,7 +325,7 @@ class InvoiceResource extends Resource
                         'Paid' => 'success',
                         'unpaid' => 'danger',
                     })
-                    ->sortable(), // Format as currency    
+                    ->sortable(), // Format as currency
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date Created')
                     ->dateTime()

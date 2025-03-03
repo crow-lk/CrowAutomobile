@@ -79,7 +79,7 @@
                     </tr>
                 @endif
             @endforeach
-        
+
             <tr>
                 <td colspan="5" style="text-align: left; font-weight: bold; font-size: 12px;">Services</td>
             </tr>
@@ -89,6 +89,7 @@
                         <td style="width:10%; text-align: center; font-size: 11px;">{{ $index + 1 }}</td>
                         <td style="width:40%; text-align: left; font-size: 11px;">
                             {{ $item->service->name ?? 'N/A' }}
+
                             @if($item->warranty_available)
                                 <br>
                                 <span style="font-size: 0.8em; font-weight: bold;">({{ $item->warranty_type }} Warranty)</span>
@@ -96,7 +97,7 @@
                         </td>
                         <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->price, 2) }}</td>
                         <td style="width:10%; text-align: center; font-size: 11px;">
-                            
+
                         </td>
                         <td style="width:20%; text-align: right; font-size: 11px;">{{ number_format($item->quantity * $item->price, 2) }}</td>
                     </tr>
@@ -104,11 +105,22 @@
             @endforeach
         </tbody>
     </table>
+
+
+
+
     @if($showGrandTotal)
         <p class="total">Grand Total:  Rs.{{ number_format($invoice->amount, 2) }}</p>
         <p class="total">Paid Amount:  Rs.{{ number_format($totalPaid, 2) }}</p>
         <p class="total">Balance:  Rs.{{ number_format($invoice->credit_balance, 2) }}</p>
     @endif
+
+    <div style="text-align: left; margin-top: 14px; margin-left: 40px; margin-right: 40px; padding: 5px; line-height: 0.5; border: 1px solid #000;">
+    <p style="font-weight: bold;">Special Notes:</p>
+    <p>{{ $item->notes ?? 'N/A' }}</p>
+</div>
+
+
     <div class="text1">
         <p class="h1"><strong>Jagath Motors & Engineering</strong></p>
         <p class="p1"><strong>Thank you for buisness with us!</strong></p>

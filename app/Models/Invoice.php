@@ -19,7 +19,8 @@ class Invoice extends Model
         'is_quatation',
         'credit_balance',
         'payment_status',
-        'invoice_date'
+        'invoice_date',
+        
     ];
 
 
