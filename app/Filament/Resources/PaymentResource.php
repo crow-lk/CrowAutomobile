@@ -116,7 +116,7 @@ class PaymentResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('invoice_id')->label('Invoice')->sortable(),
+                TextColumn::make('invoice_id')->label('Invoice')->sortable()->searchable(),
                 TextColumn::make('invoice.amount')->label('Total')->sortable(),
                 TextColumn::make('amount_paid')->label('Amount Paid')->sortable(),
                 TextColumn::make('payment_date')->label('Payment Date')->sortable(),
