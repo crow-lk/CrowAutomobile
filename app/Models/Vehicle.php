@@ -13,7 +13,7 @@ class Vehicle extends Model
 
     protected $fillable = [
         'number',
-        'brand',
+        'brand_id',
         'model',
         'milage',
         'is_km',
@@ -34,5 +34,10 @@ class Vehicle extends Model
     public function inpha_jobs()
     {
         return $this->hasMany(Inpha_Job::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
     }
 }

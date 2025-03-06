@@ -241,7 +241,7 @@ class InvoiceResource extends Resource
                             ->reactive()
                             ->required(fn($get) => $get('warranty_available')) // Required if warranty is available
                             ->disabled(fn($get) => !$get('warranty_available')), // Disable if warranty is not available
-                            
+
                                     /*Note Adding Section */
 
                                     Forms\Components\TextInput::make('notes')
@@ -305,7 +305,7 @@ class InvoiceResource extends Resource
                     ->formatStateUsing(function ($state, $record) {
                         // Access the related vehicle and concatenate brand and model
                         $vehicle = $record->vehicle; // Eager load the vehicle relationship
-                        return $vehicle ? "{$vehicle->brand} {$state}" : 'N/A'; // Return 'brand model' or 'N/A' if no vehicle
+                        return $vehicle ? "{$vehicle->brand->brand_name} {$state}" : 'N/A'; // Return 'brand model' or 'N/A' if no vehicle
                     }),
                 Tables\Columns\TextColumn::make('mileage')
                     ->label('Mileage')

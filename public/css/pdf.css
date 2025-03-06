@@ -109,20 +109,44 @@ th {
 }
 
 .total {
-    margin-top: 20px;
+    margin-top: 0;
     margin-left: 40px;
     margin-right: 40px;
-    padding: 8px;
+    padding: 5px;
     background-color: #ddd;
     color: black;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.paid {
+    margin-top: 0;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 5px;
+    background-color: #4CAF50;
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.topay {
+    margin-top: 0;
+    margin-left: 40px;
+    margin-right: 40px;
+    padding: 5px;
+    background-color: #cf0a0a;
+    color: black;
+    font-size: 13px;
     font-weight: bold;
     text-align: right;
 }
 
 .text1 {
     position: fixed;
-    top: 910px;
+    top: 930px;
     color: black;
     margin-left: 40px;
 }
